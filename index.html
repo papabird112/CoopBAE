@@ -17,13 +17,16 @@
   --font-display: "Bai Jamjuree", "IBM Plex Sans Thai", "Leelawadee UI", Tahoma, sans-serif;
   --font-body: "IBM Plex Sans Thai", "Leelawadee UI", "Noto Sans Thai", Tahoma, sans-serif;
   --r: 10px;
+  --fam1: #2a6fb0; --fam2: #7a4fb5; --fam3: #2f8a4e; --fam4: #c0622b; --fam5: #a8467a;
 }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
   --bg: #121815; --surface: #1a221e; --ink: #e6ece8; --muted: #9aa8a0; --line: #2c3731;
-  --accent: #5cc195; --accent-soft: #1f3a2e; --warm: #e0a84a; --warn: #f08a4b; --empty: #212b26; color-scheme: dark; } }
+  --accent: #5cc195; --accent-soft: #1f3a2e; --warm: #e0a84a; --warn: #f08a4b; --empty: #212b26; color-scheme: dark;
+  --fam1: #6aa8e6; --fam2: #b08ce6; --fam3: #63c487; --fam4: #ee9a5f; --fam5: #e283b6; } }
 :root[data-theme="dark"] {
   --bg: #121815; --surface: #1a221e; --ink: #e6ece8; --muted: #9aa8a0; --line: #2c3731;
-  --accent: #5cc195; --accent-soft: #1f3a2e; --warm: #e0a84a; --warn: #f08a4b; --empty: #212b26; color-scheme: dark; }
+  --accent: #5cc195; --accent-soft: #1f3a2e; --warm: #e0a84a; --warn: #f08a4b; --empty: #212b26; color-scheme: dark;
+  --fam1: #6aa8e6; --fam2: #b08ce6; --fam3: #63c487; --fam4: #ee9a5f; --fam5: #e283b6; }
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
 body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 15px; line-height: 1.55; }
@@ -72,7 +75,31 @@ button:focus-visible, input:focus-visible, select:focus-visible, .tile:focus-vis
 @media (max-width: 520px) { .skrow { grid-template-columns: minmax(0, 1fr) auto; } .skrow .track { grid-column: 1 / -1; grid-row: 2; } }
 #years svg { display: block; width: 100%; height: auto; }
 .scroll { overflow: auto; max-height: 36rem; border-radius: 6px; }
-#matrix text { font-size: 11px; fill: var(--ink); }
+.mx-legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: .8rem; color: var(--muted); }
+.mx-legend span { display: inline-flex; align-items: center; gap: 6px; }
+.mx-legend i { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+.mx { overflow: auto; max-height: 42rem; min-height: 320px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); }
+.mxg { display: grid; grid-template-columns: minmax(13rem, 19rem) 4.5rem repeat(var(--n), minmax(4.4rem, 1fr)); min-width: max-content; font-size: .8rem; }
+.mxg > div { border-bottom: 1px solid var(--line); padding: 6px 4px; display: flex; align-items: center; justify-content: center; min-width: 0; }
+.mxh { position: sticky; top: 0; z-index: 2; background: var(--empty); flex-direction: column; gap: 3px; padding: 0 4px 6px !important; cursor: pointer; text-align: center; line-height: 1.25; border-bottom: 2px solid var(--line) !important; }
+.mxh .bar { align-self: stretch; height: 5px; border-radius: 0 0 3px 3px; margin-bottom: 4px; }
+.mxh .nm { font-weight: 600; color: var(--ink); }
+.mxh .ct { color: var(--muted); font-variant-numeric: tabular-nums; }
+.mxh.on { background: var(--surface); box-shadow: inset 0 0 0 2px var(--ink); }
+.mxh:focus-visible { outline: 2px solid var(--ink); outline-offset: -2px; }
+.mxh.corner { cursor: default; justify-content: flex-end; align-items: flex-start; text-align: left; color: var(--muted); padding-left: 8px !important; }
+.mxh.corner:first-child { left: 0; z-index: 3; }
+.mxname { position: sticky; left: 0; z-index: 1; background: var(--surface); justify-content: flex-start !important; flex-direction: column; align-items: flex-start !important; gap: 1px; padding-left: 8px !important; text-align: left; border-right: 1px solid var(--line); }
+.mxname b { font-weight: 600; line-height: 1.3; }
+.mxname small { color: var(--muted); font-size: 11px; }
+.mxn { flex-direction: column; gap: 3px; font-variant-numeric: tabular-nums; }
+.mxn .mb { height: 4px; border-radius: 2px; background: var(--empty); align-self: stretch; }
+.mxn .mb span { display: block; height: 100%; border-radius: 2px; background: var(--muted); }
+.mxc .yes { width: 26px; height: 22px; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: var(--surface); font-weight: 700; font-size: 12px; }
+.mxc .no { width: 5px; height: 5px; border-radius: 50%; background: var(--line); }
+.mxc.colon { background: color-mix(in srgb, var(--ink) 6%, transparent); }
+.mxg .row-hover { background: color-mix(in srgb, var(--ink) 7%, var(--surface)) !important; }
+.mxg .dim .yes { opacity: .25; }
 .tools { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 .tools input, .tools select { font: inherit; font-size: .85rem; padding: 6px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); color: var(--ink); min-width: 0; }
 .tools input { flex: 1 1 14rem; }
@@ -161,8 +188,18 @@ window.CP_CONFIG = {
     </div>
     <div class="card">
       <h3>ทักษะที่แต่ละบริษัทใช้</h3>
-      <p class="note">จุด = งานของบริษัทเกี่ยวข้องกับสาขานั้น (จัดกลุ่มจากลักษณะงานและหัวข้อโครงงาน) เรียงตามจำนวนนักศึกษา</p>
-      <div class="scroll"><div id="matrix"></div></div>
+      <p class="note">ช่องสี = งานของบริษัทเกี่ยวข้องกับสาขานั้น (จัดกลุ่มจากลักษณะงานและหัวข้อโครงงานในไฟล์ภาควิชา ไม่ใช่ข้อกำหนดที่บริษัทประกาศ) · แตะหัวคอลัมน์เพื่อดูเฉพาะบริษัทในสาขานั้น</p>
+      <div class="tools">
+        <input id="mxq" type="search" placeholder="ค้นหาบริษัทในตารางนี้" aria-label="ค้นหาบริษัทในตารางทักษะ">
+        <select id="mxsort" aria-label="เรียงลำดับ">
+          <option value="total">เรียงตามจำนวนนักศึกษา</option>
+          <option value="skills">เรียงตามจำนวนสาขาทักษะ</option>
+          <option value="name">เรียงตามชื่อบริษัท</option>
+        </select>
+      </div>
+      <div class="mx-legend" id="mx-legend"></div>
+      <p class="note" id="mx-count"></p>
+      <div class="mx" id="matrix"></div>
     </div>
   </section>
 
@@ -383,30 +420,70 @@ window.CP_CONFIG = {
     $('#years-note').textContent = years.includes(2567) ? 'ปี 2567 รวบรวมได้เฉพาะจากแบบฟอร์มแจ้งหัวข้อโครงงาน ตัวเลขจึงต่ำกว่าจริง' : '';
   }
 
+  const FAMILIES = [
+    { name: 'เครื่องกลและการผลิต', skills: ['เครื่องจักรกล', 'การผลิต/โลจิสติกส์'] },
+    { name: 'ระบบควบคุมและดิจิทัล', skills: ['อัตโนมัติ/IoT', 'โดรน/GIS', 'ข้อมูล/AI'] },
+    { name: 'พืช ดิน น้ำ และโรงเรือน', skills: ['โรงเรือน', 'ดิน-น้ำ', 'การผลิตพืช/ฟาร์ม'] },
+    { name: 'อาหารและสัตว์', skills: ['หลังเก็บเกี่ยว/อาหาร', 'ปศุสัตว์/อาหารสัตว์'] },
+    { name: 'วิจัย', skills: ['วิจัย'] },
+  ];
+  const famColor = (i) => `var(--fam${i + 1})`;
+  const skillColor = (s) => famColor(FAMILIES.findIndex((f) => f.skills.includes(s)));
+  const MX_SKILLS = FAMILIES.flatMap((f) => f.skills).filter((s) => SKILLS.includes(s));
+  const mx = { q: '', sort: 'total' };
+  const mk = (tag, cls, text) => { const n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = text; return n; };
+
   function drawMatrix(list) {
-    const comps = list.slice().sort((a, b) => b.total - a.total || b.latest - a.latest);
-    const rowH = 19, colW = 32, top = 104;
-    const name = (c) => (c.name.length > 48 ? c.name.slice(0, 47) + '…' : c.name);
-    const host = $('#matrix');
-    const svg = sv('svg', { role: 'img', 'aria-label': 'ตารางทักษะของแต่ละบริษัท' });
-    host.replaceChildren(svg);
-    const probe = sv('text', { 'font-size': 11 }); svg.append(probe);
-    let left = 0; comps.forEach((c) => { probe.textContent = name(c); left = Math.max(left, probe.getComputedTextLength()); });
-    probe.remove(); left = Math.ceil(left) + 44;
-    const W = left + colW * SKILLS.length + 10, H = top + rowH * comps.length + 4;
-    svg.setAttribute('viewBox', `0 0 ${W} ${H}`); svg.setAttribute('width', W); svg.setAttribute('height', H);
-    SKILLS.forEach((s, i) => {
-      if (S.skill === s) svg.append(sv('rect', { x: left + i * colW + 2, y: top - 6, width: colW - 4, height: H - top + 6, rx: 5, fill: 'var(--accent-soft)' }));
-      const t = sv('text', { transform: `translate(${left + i * colW + colW / 2 + 3},${top - 10}) rotate(-50)`, 'font-weight': S.skill === s ? 700 : 400 }); t.textContent = s; svg.append(t);
+    const cur = S.skill;
+    const loc = (c) => (c.country === 'ไทย' ? c.province || 'ไม่ทราบ' : c.country);
+    const q = mx.q.toLowerCase();
+    const comps = list.filter((c) => (!cur || c.skills.includes(cur)) && (!q || [c.name, loc(c), c.work].join(' ').toLowerCase().includes(q)));
+    const by = {
+      total: (a, b) => b.total - a.total || b.latest - a.latest,
+      skills: (a, b) => b.skills.length - a.skills.length || b.total - a.total,
+      name: (a, b) => a.name.localeCompare(b.name, 'th'),
+    };
+    comps.sort(by[mx.sort]);
+    const maxT = Math.max(1, ...list.map((c) => c.total));
+
+    $('#mx-legend').replaceChildren(...FAMILIES.map((f, i) => { const s = mk('span'); const sw = mk('i'); sw.style.background = famColor(i); s.append(sw, f.name); return s; }));
+    $('#mx-count').textContent = `แสดง ${fmt(comps.length)} แห่ง` + (cur ? ` ในสาขา ${SKILL_FULL[cur]} · แตะหัวคอลัมน์อีกครั้งเพื่อดูทั้งหมด` : '');
+
+    const g = mk('div', 'mxg'); g.style.setProperty('--n', MX_SKILLS.length);
+    g.append(mk('div', 'mxh corner', 'บริษัท / หน่วยงาน'), mk('div', 'mxh corner', 'นศ.'));
+    MX_SKILLS.forEach((s) => {
+      const h = mk('div', 'mxh' + (cur === s ? ' on' : ''));
+      h.tabIndex = 0; h.setAttribute('role', 'button'); h.title = SKILL_FULL[s];
+      h.setAttribute('aria-pressed', String(cur === s));
+      const bar = mk('span', 'bar'); bar.style.background = skillColor(s);
+      h.append(bar, mk('span', 'nm', s), mk('span', 'ct', fmt(list.filter((c) => c.skills.includes(s)).length) + ' แห่ง'));
+      const pick = () => { S.skill = cur === s ? '' : s; render(); };
+      h.addEventListener('click', pick);
+      h.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(); } });
+      g.append(h);
     });
-    comps.forEach((c, r) => {
-      const y = top + r * rowH + rowH / 2;
-      if (r % 2 === 0) svg.append(sv('rect', { x: 0, y: y - rowH / 2, width: W, height: rowH, fill: 'var(--bg)' }));
-      const t = sv('text', { x: 4, y, 'dominant-baseline': 'central' }); t.textContent = name(c); svg.append(t);
-      const n = sv('text', { x: left - 10, y, 'dominant-baseline': 'central', 'text-anchor': 'end', fill: 'var(--muted)' }); n.textContent = c.total; svg.append(n);
-      SKILLS.forEach((s, i) => { if (c.skills.includes(s)) svg.append(sv('circle', { cx: left + i * colW + colW / 2, cy: y, r: 5.5, fill: S.skill && S.skill !== s ? 'var(--line)' : 'var(--accent)' })); });
+    comps.forEach((c) => {
+      const cells = [];
+      const nm = mk('div', 'mxname'); nm.append(mk('b', null, c.name), mk('small', null, `${loc(c)} · ${c.skills.length} สาขา`));
+      const nn = mk('div', 'mxn'); const mb = mk('span', 'mb'); const fill = mk('span'); fill.style.width = (100 * c.total / maxT) + '%'; mb.append(fill); nn.append(mk('span', null, fmt(c.total)), mb);
+      cells.push(nm, nn);
+      MX_SKILLS.forEach((s) => {
+        const d = mk('div', 'mxc' + (cur === s ? ' colon' : '') + (cur && cur !== s ? ' dim' : ''));
+        if (c.skills.includes(s)) { const y = mk('span', 'yes', '✓'); y.style.background = skillColor(s); y.title = `${c.name}: ${SKILL_FULL[s]}`; d.append(y); }
+        else d.append(mk('span', 'no'));
+        cells.push(d);
+      });
+      cells.forEach((x) => {
+        x.addEventListener('mouseenter', () => cells.forEach((y) => y.classList.add('row-hover')));
+        x.addEventListener('mouseleave', () => cells.forEach((y) => y.classList.remove('row-hover')));
+      });
+      g.append(...cells);
     });
+    if (!comps.length) { const e = mk('div', null, 'ไม่พบบริษัทที่ตรงกับการค้นหา'); e.style.gridColumn = '1 / -1'; e.style.padding = '16px'; g.append(e); }
+    $('#matrix').replaceChildren(g);
   }
+  $('#mxq').addEventListener('input', (e) => { mx.q = e.target.value.trim(); drawMatrix(M.list); });
+  $('#mxsort').addEventListener('change', (e) => { mx.sort = e.target.value; drawMatrix(M.list); });
 
   function drawTable(list) {
     const sel = $('#skill-select');
