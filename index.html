@@ -41,6 +41,10 @@ h3 { font-size: 1rem; }
 .status { display: inline-flex; align-items: center; gap: 8px; margin-top: 10px; font-size: .8rem; color: var(--muted); }
 .status i { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); display: inline-block; }
 .status.offline i { background: var(--warm); }
+.notice { margin-top: 14px; max-width: 68ch; border-left: 3px solid var(--warm); background: var(--surface); border-radius: 0 var(--r) var(--r) 0; padding: 10px 14px; font-size: .84rem; color: var(--muted); }
+.notice b { color: var(--ink); font-weight: 600; }
+.notice p { margin: 4px 0 0; }
+.notice a { color: var(--accent); overflow-wrap: anywhere; }
 .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr)); gap: 12px; }
 .kpi { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 16px 18px; display: flex; flex-direction: column; gap: 2px; }
 .kpi span { font-size: .8rem; color: var(--muted); }
@@ -138,6 +142,11 @@ window.CP_CONFIG = {
     <h1>สหกิจศึกษา: นักศึกษาไปฝึกที่ไหนบ้าง</h1>
     <p class="lede" id="lede">กำลังโหลดข้อมูล…</p>
     <div class="status" id="status"><i></i><span>กำลังโหลด</span></div>
+    <aside class="notice" role="note">
+      <b>หมายเหตุ</b>
+      <p>ข้อมูลที่แสดงเป็นข้อมูลในช่วงปีการศึกษา <span id="notice-range">ที่ระบุ</span> และอ้างอิงจากประวัติการรับนักศึกษาสหกิจของภาควิชาเท่านั้น ในปัจจุบันบริษัทอาจมีการเปลี่ยนแปลงนโยบาย และมีขอบเขตงานที่มากหรือน้อยลงได้</p>
+      <p>หากต้องการให้อัปเดตข้อมูลในเพจนี้ กรุณาส่งอีเมลมาที่ <a href="mailto:papabird112@gmail.com">papabird112@gmail.com</a></p>
+    </aside>
   </header>
 
   <div class="kpis">
@@ -319,6 +328,7 @@ window.CP_CONFIG = {
     // KPI + lede
     const range = years.length ? `${years[0]}–${years[years.length - 1]}` : '';
     $('#k-range').textContent = range ? `(${range})` : '';
+    $('#notice-range').textContent = range || 'ที่ระบุ';
     $('#k-students').textContent = fmt(sum(placements));
     $('#k-companies').textContent = fmt(list.length);
     $('#k-provinces').textContent = fmt(new Set(thai.map((p) => p.prov)).size);
